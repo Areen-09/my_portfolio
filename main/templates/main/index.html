@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Areen's Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#fffcf2',
+            lightGray: '#ccc5b9',
+            darkGray: '#403d39',
+            almostBlack: '#252422',
+            orange: '#eb5e28'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 3D flip effect styles */
+    .backface-hidden {
+    backface-visibility: hidden;
+    }
+
+    #profile-image {
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    }
+
+    #coin-container {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    transition: transform 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 10px rgba(192, 192, 192, 0.5));
+    }
+
+    #coin-heads, #coin-tails {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    }
+
+    #coin-tails {
+    transform: rotateY(180deg);
+    }
+
+    /* Improved shine effect during flip */
+    @keyframes shine {
+    0%, 100% { filter: brightness(1) drop-shadow(0 0 10px rgba(192, 192, 192, 0.5)); }
+    50% { filter: brightness(1.3) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)); }
+    }
+    .certification-link {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    }
+
+    .certification-link:hover .certificate-overlay {
+    opacity: 1;
+    }
+
+    .certificate-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(37, 36, 34, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    }
+
+  </style>  
+</head>
+<body class="bg-almostBlack text-cream">
+  <!-- Navigation - Fixed at top -->
+  <nav class="fixed top-0 left-0 right-0 z-10 bg-almostBlack py-4 px-6">
+    <div class="container mx-auto flex justify-end items-center">
+      <ul class="flex space-x-6">
+        <li><a href="#about" class="hover:text-orange">About Me</a></li>
+        <li><a href="#certifications" class="hover:text-orange">Certifications</a></li>
+        <li><a href="#projects" class="hover:text-orange">Projects</a></li>
+        <li>
+          <a href="#contact" class="bg-orange text-cream px-4 py-2 rounded transition-colors duration-300 hover:bg-cream hover:text-orange">
+            Say hello!
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section - Full height and centered -->
+  <section id="home" class="min-h-screen flex items-center">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="md:w-3/5 md:pl-12">
+          <h1 class="text-4xl font-bold mb-2">Hello, I'm Areen,</h1>
+          <div class="relative h-20">
+            <div id="title-container" class="text-6xl font-bold text-orange">
+              Web Developer
+            </div>
+          </div>
+          <p class="mt-8 text-lightGray leading-relaxed">
+            Currently pursuing a B.Tech in Electronics and Communication<br>
+            Engineering at VIT Vellore.
+          </p>
+
+          <!-- Social Icons -->
+          <div class="flex space-x-4 mt-10">
+            <a href="#" class="text-orange hover:text-cream transition p-2">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-orange hover:text-cream transition p-2">
+              <svg class="w-6 h-6" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-orange hover:text-cream transition p-2">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="md:w-2/5 mt-8 md:mt-0 flex justify-center items-center">
+            <div class="relative w-80 h-80">
+              <img id="profile-image" src="static/images/pfp.jpg" alt="Areen's profile" class="w-full h-full object-cover rounded-full border-4 border-orange shadow-lg transform hover:scale-105 transition-transform duration-300" title="Click to flip a coin!">
+              
+              <!-- Coin container -->
+                <div id="coin-container" class="absolute inset-0 w-full h-full rounded-full hidden">
+                    <!-- Heads side -->
+                    <div id="coin-heads" class="absolute inset-0 w-full h-full rounded-full backface-hidden">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <!-- Minimalistic silver coin -->
+                        <defs>
+                        <linearGradient id="silverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#e0e0e0" />
+                            <stop offset="100%" stop-color="#a0a0a0" />
+                        </linearGradient>
+                        </defs>
+                        
+                        <!-- Simple coin body -->
+                        <circle cx="100" cy="100" r="95" fill="url(#silverGradient)" stroke="#808080" stroke-width="2" />
+                        
+                        <!-- Minimal heads design -->
+                        <text x="100" y="110" text-anchor="middle" font-size="48" font-weight="bold" fill="#505050">H</text>
+                    </svg>
+                    </div>
+                    
+                    <!-- Tails side -->
+                    <div id="coin-tails" class="absolute inset-0 w-full h-full rounded-full backface-hidden">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <!-- Minimalistic silver coin -->
+                        <defs>
+                        <linearGradient id="silverGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#e0e0e0" />
+                            <stop offset="100%" stop-color="#a0a0a0" />
+                        </linearGradient>
+                        </defs>
+                        
+                        <!-- Simple coin body -->
+                        <circle cx="100" cy="100" r="95" fill="url(#silverGradient2)" stroke="#808080" stroke-width="2" />
+                        
+                        <!-- Minimal tails design -->
+                        <text x="100" y="110" text-anchor="middle" font-size="48" font-weight="bold" fill="#505050">T</text>
+                    </svg>
+                    </div>
+                </div>
+  
+              
+            </div>
+          </div>                  
+      </div>
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section id="about" class="min-h-screen py-20 bg-darkGray">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col items-center mb-12">
+        <svg class="w-16 h-16 text-orange mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+        </svg>
+        <h2 class="text-4xl font-bold text-orange">About Me</h2>
+      </div>
+      
+      <div class="flex flex-col md:flex-row gap-8">
+        <div class="md:w-1/2">
+          <h3 class="text-2xl font-bold mb-4">Who I Am</h3>
+          <p class="text-lightGray leading-relaxed mb-6">
+            I'm a passionate developer with strong interests in web development and artificial intelligence. Currently pursuing my B.Tech in Electronics and Communication Engineering at VIT Vellore, I'm constantly exploring new technologies and working on exciting projects.
+          </p>
+          <p class="text-lightGray leading-relaxed mb-6">
+            My journey in tech began when I was in high school, and I've been honing my skills ever since. I enjoy solving complex problems and creating intuitive, user-friendly applications.
+          </p>
+        </div>
+        
+        <div class="md:w-1/2">
+          <h3 class="text-2xl font-bold mb-4">My Skills</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Web Development</span>
+                <span>90%</span>
+              </div>
+              <div class="w-full bg-almostBlack rounded-full h-2">
+                <div class="bg-orange h-2 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Machine Learning</span>
+                <span>75%</span>
+              </div>
+              <div class="w-full bg-almostBlack rounded-full h-2">
+                <div class="bg-orange h-2 rounded-full" style="width: 85%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>IoT Development</span>
+                <span>65%</span>
+              </div>
+              <div class="w-full bg-almostBlack rounded-full h-2">
+                <div class="bg-orange h-2 rounded-full" style="width: 75%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Deep Learning</span>
+                <span>80%</span>
+              </div>
+              <div class="w-full bg-almostBlack rounded-full h-2">
+                <div class="bg-orange h-2 rounded-full" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Section -->
+  <section id="certifications" class="min-h-screen py-20 bg-almostBlack">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col items-center mb-12">
+        <svg class="w-16 h-16 text-orange mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
+        </svg>
+        <h2 class="text-4xl font-bold text-orange">Certifications</h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Certification Card 2 -->
+        <div class="certification-link bg-darkGray rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105 cursor-pointer" data-cert="static/certifications/convolve_3.0_certificate.pdf">
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Finalist</h3>
+              <p class="text-lightGray mb-4">Convolve 3.0: A Pan IIT AI/ML Hackathon</p>
+              <div class="flex justify-between text-sm">
+                <span>Completed: Feb 2025</span>
+              </div>
+              <div class="mt-4 text-orange flex items-center">
+                <span>View Certificate</span>
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        <!-- Certification Card 1 -->
+        <div class="certification-link bg-darkGray rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105 cursor-pointer" data-cert="static/certifications/devjams_certificate.pdf">
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Finalist</h3>
+              <p class="text-lightGray mb-4">Devjams'24 hosted by GDSC VIT</p>
+              <div class="flex justify-between text-sm">
+                <span>Completed: Sept 2024</span>
+              </div>
+              <div class="mt-4 text-orange flex items-center">
+                <span>View Certificate</span>
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        <!-- Certification Card 1 -->
+        <div class="certification-link bg-darkGray rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105 cursor-pointer" data-cert="static/certifications/Meta_BackEnd_Developer_Certificate.pdf">
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Meta Back-End Developer</h3>
+            <p class="text-lightGray mb-4">Coursera</p>
+            <div class="flex justify-between text-sm">
+              <span>Completed: Sept 2023</span>
+            </div>
+            <div class="mt-4 text-orange flex items-center">
+              <span>View Certificate</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+        
+        
+        <!-- Certification Card 3 -->
+        <div class="certification-link bg-darkGray rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105 cursor-pointer" data-cert="static/certifications/Winners_AI-ML_Marvels_Ideathon.pdf">
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Winner</h3>
+            <p class="text-lightGray mb-4">AI-ML Marvels organised by TAM VIT</p>
+            <div class="flex justify-between text-sm">
+              <span>Completed: Sept 2023</span>
+            </div>
+            <div class="mt-4 text-orange flex items-center">
+              <span>View Certificate</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- Projects Section -->
+  <section id="projects" class="min-h-screen py-20 bg-darkGray">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col items-center mb-12">
+        <svg class="w-16 h-16 text-orange mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"></path>
+        </svg>
+        <h2 class="text-4xl font-bold text-orange">Projects</h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Project Card 1 -->
+        <div class="bg-almostBlack rounded-lg overflow-hidden shadow-lg">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-2">Movie Review Analysis</h3>
+            <p class="text-lightGray mb-4">
+                This is an web application that uses a pre-trained deep learning model to analyze the sentiment of movie reviews.
+            </p>
+            <div class="flex gap-2 mb-4">
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">Python</span>
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">Tensorflow</span>
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">NLP</span>
+            </div>
+            <div class="flex justify-between">
+              <a href="https://review-analysis-using-rnn.streamlit.app" class="text-orange hover:underline">View Project</a>
+              <a href="#" class="text-orange hover:underline">GitHub</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project Card 2 -->
+        <div class="bg-almostBlack rounded-lg overflow-hidden shadow-lg">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-2">Automatic Parking System</h3>
+            <p class="text-lightGray mb-4">
+                An autonomous parking system for vehicles using reinforcement learning techniques with simulation using Unity.
+            </p>
+            <div class="flex gap-2 mb-4">
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">Unity</span>
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">Python</span>
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">C#</span>
+            </div>
+            <div class="flex justify-between">
+              <a href="#" class="text-orange hover:underline">View Project</a>
+              <a href="https://github.com/Areen-09/Automatic_Parking_System_Using_ReinforcementLearning_with_Simulation_in_Unity" class="text-orange hover:underline">GitHub</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project Card 3 -->
+        <div class="bg-almostBlack rounded-lg overflow-hidden shadow-lg">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-2">Smart Home Automation</h3>
+            <p class="text-lightGray mb-4">
+              An IoT project that enables control of home appliances through voice commands and mobile app.
+            </p>
+            <div class="flex gap-2 mb-4">
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">Arduino</span>
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">Node.js</span>
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">MQTT</span>
+            </div>
+            <div class="flex justify-between">
+              <a href="#" class="text-orange hover:underline">View Project</a>
+              <a href="#" class="text-orange hover:underline">GitHub</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project Card 4 -->
+        <div class="bg-almostBlack rounded-lg overflow-hidden shadow-lg">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-2">E-Learning Platform</h3>
+            <p class="text-lightGray mb-4">
+              A full-stack web application for creating and consuming educational content with progress tracking.
+            </p>
+            <div class="flex gap-2 mb-4">
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">React</span>
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">Django</span>
+              <span class="bg-orange text-cream px-2 py-1 rounded text-xs">PostgreSQL</span>
+            </div>
+            <div class="flex justify-between">
+              <a href="#" class="text-orange hover:underline">View Project</a>
+              <a href="#" class="text-orange hover:underline">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-almostBlack">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col items-center mb-12">
+        <svg class="w-16 h-16 text-orange mb-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+          <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+        </svg>
+        <h2 class="text-4xl font-bold text-orange">Get In Touch</h2>
+      </div>
+      
+      <div class="max-w-2xl mx-auto">
+        <form class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="name" class="block mb-2">Name</label>
+              <input type="text" id="name" class="w-full px-4 py-2 bg-darkGray border border-gray-700 rounded focus:outline-none focus:border-orange">
+            </div>
+            <div>
+              <label for="email" class="block mb-2">Email</label>
+              <input type="email" id="email" class="w-full px-4 py-2 bg-darkGray border border-gray-700 rounded focus:outline-none focus:border-orange">
+            </div>
+          </div>
+          <div>
+            <label for="subject" class="block mb-2">Subject</label>
+            <input type="text" id="subject" class="w-full px-4 py-2 bg-darkGray border border-gray-700 rounded focus:outline-none focus:border-orange">
+          </div>
+          <div>
+            <label for="message" class="block mb-2">Message</label>
+            <textarea id="message" rows="5" class="w-full px-4 py-2 bg-darkGray border border-gray-700 rounded focus:outline-none focus:border-orange"></textarea>
+          </div>
+          <button type="submit" class="bg-orange text-cream px-6 py-3 rounded transition-colors duration-300 hover:bg-cream hover:text-orange">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 bg-darkGray border-t border-gray-800">
+    <div class="container mx-auto px-6 text-center">
+      <p>© 2025 Areen. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Existing title animation script
+    const titles = ["Web Developer", "AI Engineer"];
+    const titleContainer = document.getElementById('title-container');
+    let currentIndex = 0;
+    
+    function changeTitle() {
+      // Start fade out
+      titleContainer.style.opacity = '0';
+      titleContainer.style.transition = 'opacity 0.4s ease';
+      
+      // After fade out, change text and fade in
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % titles.length;
+        titleContainer.textContent = titles[currentIndex];
+        titleContainer.style.opacity = '1';
+      }, 400);
+    }
+    
+    // Set initial state
+    titleContainer.style.opacity = '1';
+    
+    // Start the transition with faster interval
+    setInterval(changeTitle, 3000);
+    
+    // Coin flip animation
+    document.addEventListener('DOMContentLoaded', function() {  
+        const profileImage = document.getElementById('profile-image');
+        const coinContainer = document.getElementById('coin-container');
+        const coinHeads = document.getElementById('coin-heads');
+        const coinTails = document.getElementById('coin-tails');
+        let isFlipping = false;
+  
+        profileImage.addEventListener('click', function() {
+            if (isFlipping) return;
+            isFlipping = true;
+            
+            // Hide profile image, show coin
+            profileImage.style.opacity = '0';
+            setTimeout(() => {
+            profileImage.style.display = 'none';
+            
+            // Reset coin position
+            coinContainer.style.transform = 'rotateY(0deg)';
+            coinHeads.style.display = 'block';
+            coinTails.style.display = 'block';
+            coinContainer.style.display = 'block';
+            
+            // Determine result randomly
+            const result = Math.random() < 0.5 ? 'heads' : 'tails';
+            
+            // Apply animation
+            coinContainer.style.animation = 'shine 2.5s ease-in-out';
+            
+            // Start the flip animation with more rotations for a better effect
+            const rotations = 5; // Number of full rotations
+            const extraRotation = result === 'heads' ? 0 : 180; // Extra rotation for tails
+            const totalRotation = (rotations * 360) + extraRotation;
+            
+            // Apply the rotation
+            setTimeout(() => {
+                coinContainer.style.transform = `rotateY(${totalRotation}deg)`;
+            }, 50);
+            
+            // After animation completes, show result for a moment, then revert to profile
+            setTimeout(() => {
+                // Keep showing the result for a moment
+                setTimeout(() => {
+                // Reset and hide coin
+                coinContainer.style.animation = 'none';
+                coinContainer.style.display = 'none';
+                
+                // Show profile image again
+                profileImage.style.display = 'block';
+                setTimeout(() => {
+                    profileImage.style.opacity = '1';
+                    isFlipping = false;
+                }, 300);
+                }, 1500);
+            }, 2500);
+            }, 300);
+        });
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+    // Set up certificate preview functionality
+    const certificationLinks = document.querySelectorAll('.certification-link');
+    
+    certificationLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const certUrl = this.getAttribute('data-cert');
+        
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-almostBlack bg-opacity-90 flex items-center justify-center z-50';
+        
+        // Create certificate container
+        const certContainer = document.createElement('div');
+        certContainer.className = 'relative max-w-4xl w-full max-h-screen overflow-auto p-4';
+        
+        // Close button
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'absolute top-2 right-2 bg-orange text-cream rounded-full w-8 h-8 flex items-center justify-center';
+        closeBtn.innerHTML = '×';
+        closeBtn.addEventListener('click', () => modal.remove());
+        
+        // Certificate content
+        const certContent = document.createElement('div');
+        certContent.className = 'bg-white p-2 rounded';
+        
+        // Embed certificate (PDF or image)
+        if (certUrl.endsWith('.pdf')) {
+            certContent.innerHTML = `<iframe src="${certUrl}" width="100%" height="600" frameborder="0"></iframe>`;
+        } else {
+            certContent.innerHTML = `<img src="${certUrl}" alt="Certificate" class="w-full h-auto">`;
+        }
+        
+        // Assemble modal
+        certContainer.appendChild(closeBtn);
+        certContainer.appendChild(certContent);
+        modal.appendChild(certContainer);
+        document.body.appendChild(modal);
+        
+        // Close on outside click
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) modal.remove();
+        });
+        });
+    });
+    });
+  
+  </script>
+  
+  
+</body>
+</html>
