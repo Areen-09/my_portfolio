@@ -170,9 +170,22 @@
     .menu-icon{
       display: none;
     }
-    
+    @media (min-width: 768px) and (max-width: 1024px)  {
+      #title-container {
+          white-space: nowrap;
+          font-size: 6vw; /* Adjust the value as needed */
+        }
+    }
     /* Mobile Styles */
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
+        #title-container {
+          white-space: nowrap;
+          font-size: 10vw; /* Adjust the value as needed */
+        }
+        .title-text{
+          font-size: var(--text-xs); /* 0.75rem (12px) */ 
+          line-height: var(--text-xs--line-height);
+        }
         .container{
           justify-content: center;
         }
@@ -286,7 +299,7 @@
         </div>
         </div>
 
-        <!-- Profile Image Only (Coin flip removed) -->
+        <!-- Profile Image -->
         <div class="md:w-2/5 mt-8 md:mt-0 flex justify-center items-center">
             <div class="relative w-80 h-80">
               <img id="profile-image" src="static/images/pfp.jpg" alt="Areen's profile" class="w-full h-full object-cover rounded-full border-4 border-orange shadow-lg transform hover:scale-105 transition-transform duration-300" >
