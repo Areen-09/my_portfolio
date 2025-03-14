@@ -19,71 +19,77 @@
         }
       }
     }
-  </script>
+  </script> 
   <style>
-    /* 3D flip effect styles */
+    /* Responsive Navigation */
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+
+      nav .menu-icon {
+        display: block;
+        cursor: pointer;
+      }
+
+      nav.active ul {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        background-color: #252422;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      h1, p {
+        text-align: center;
+        font-size: 1.2rem;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+      .project-card, .certification-link {
+        margin-bottom: 20px;
+      }
+    }
+
+    /* Coin Flip Styles */
     .backface-hidden {
-    backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
     #profile-image {
-    transition: opacity 0.3s ease;
-    cursor: pointer;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
     }
 
     #coin-container {
-    perspective: 1200px;
-    transform-style: preserve-3d;
-    transition: transform 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    filter: drop-shadow(0 0 10px rgba(192, 192, 192, 0.5));
+      perspective: 1200px;
+      transform-style: preserve-3d;
+      transition: transform 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     #coin-heads, #coin-tails {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
     }
 
     #coin-tails {
-    transform: rotateY(180deg);
+      transform: rotateY(180deg);
     }
-
-    /* Improved shine effect during flip */
-    @keyframes shine {
-    0%, 100% { filter: brightness(1) drop-shadow(0 0 10px rgba(192, 192, 192, 0.5)); }
-    50% { filter: brightness(1.3) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)); }
-    }
-    .certification-link {
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    }
-
-    .certification-link:hover .certificate-overlay {
-    opacity: 1;
-    }
-
-    .certificate-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(37, 36, 34, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    }
-
-  </style>  
+  </style>
 </head>
 <body class="bg-almostBlack text-cream">
   <!-- Navigation - Fixed at top -->
   <nav class="fixed top-0 left-0 right-0 z-10 bg-almostBlack py-4 px-6">
-    <div class="container mx-auto flex justify-end items-center">
+    <div class="container mx-auto flex justify-between items-center">
+      <span class="menu-icon text-orange text-2xl">&#9776;</span>
       <ul class="flex space-x-6">
         <li><a href="#about" class="hover:text-orange">About Me</a></li>
         <li><a href="#certifications" class="hover:text-orange">Certifications</a></li>
@@ -499,63 +505,50 @@
     // Start the transition with faster interval
     setInterval(changeTitle, 3000);
     
-    // Coin flip animation
-    document.addEventListener('DOMContentLoaded', function() {  
-        const profileImage = document.getElementById('profile-image');
-        const coinContainer = document.getElementById('coin-container');
-        const coinHeads = document.getElementById('coin-heads');
-        const coinTails = document.getElementById('coin-tails');
-        let isFlipping = false;
-  
-        profileImage.addEventListener('click', function() {
-            if (isFlipping) return;
-            isFlipping = true;
-            
-            // Hide profile image, show coin
-            profileImage.style.opacity = '0';
+    document.addEventListener('DOMContentLoaded', function () {
+      const profileImage = document.getElementById('profile-image');
+      const coinContainer = document.getElementById('coin-container');
+      const coinHeads = document.getElementById('coin-heads');
+      const coinTails = document.getElementById('coin-tails');
+      
+      let isFlipping = false;
+
+      profileImage.addEventListener('click', function () {
+        if (isFlipping) return;
+        
+        isFlipping = true;
+
+        // Hide profile image and show coin
+        profileImage.style.opacity = '0';
+        setTimeout(() => {
+          profileImage.style.display = 'none';
+          coinContainer.style.display = 'block';
+
+          // Randomize result
+          const result = Math.random() < 0.5 ? 'heads' : 'tails';
+          const rotations = result === 'heads' ? '0deg' : '180deg';
+
+          // Animate coin flip
+          coinContainer.style.transform = `rotateY(${360 * 5 + parseInt(rotations)}deg)`;
+
+          // Show result after animation
+          setTimeout(() => {
+            coinHeads.style.display = result === 'heads' ? 'block' : 'none';
+            coinTails.style.display = result === 'tails' ? 'block' : 'none';
+
+            // Reset after showing result
             setTimeout(() => {
-            profileImage.style.display = 'none';
-            
-            // Reset coin position
-            coinContainer.style.transform = 'rotateY(0deg)';
-            coinHeads.style.display = 'block';
-            coinTails.style.display = 'block';
-            coinContainer.style.display = 'block';
-            
-            // Determine result randomly
-            const result = Math.random() < 0.5 ? 'heads' : 'tails';
-            
-            // Apply animation
-            coinContainer.style.animation = 'shine 2.5s ease-in-out';
-            
-            // Start the flip animation with more rotations for a better effect
-            const rotations = 5; // Number of full rotations
-            const extraRotation = result === 'heads' ? 0 : 180; // Extra rotation for tails
-            const totalRotation = (rotations * 360) + extraRotation;
-            
-            // Apply the rotation
-            setTimeout(() => {
-                coinContainer.style.transform = `rotateY(${totalRotation}deg)`;
-            }, 50);
-            
-            // After animation completes, show result for a moment, then revert to profile
-            setTimeout(() => {
-                // Keep showing the result for a moment
-                setTimeout(() => {
-                // Reset and hide coin
-                coinContainer.style.animation = 'none';
-                coinContainer.style.display = 'none';
-                
-                // Show profile image again
-                profileImage.style.display = 'block';
-                setTimeout(() => {
-                    profileImage.style.opacity = '1';
-                    isFlipping = false;
-                }, 300);
-                }, 1500);
-            }, 2500);
-            }, 300);
-        });
+              coinContainer.style.display = 'none';
+              profileImage.style.display = 'block';
+              profileImage.style.opacity = '1';
+              isFlipping = false;
+            }, 1500);
+          }, 2500);
+        }, 300);
+      });
+    });
+    document.querySelector('.menu-icon').addEventListener('click', () => {
+      document.querySelector('nav').classList.toggle('active');
     });
     
     document.addEventListener('DOMContentLoaded', function() {
