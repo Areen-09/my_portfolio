@@ -21,80 +21,240 @@
     }
   </script> 
   <style>
-    /* Responsive Navigation */
-    @media (max-width: 768px) {
-      nav ul {
-        display: none;
-      }
-
-      nav .menu-icon {
-        display: block;
-        cursor: pointer;
-      }
-
-      nav.active ul {
+    /* Global Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    
+    body {
+        background-color: #3c3c3a;
+        color: #ffffff;
+        line-height: 1.6;
+    }
+    
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+        justify-content: flex-end;
+    }
+    
+    /* Navigation */
+    nav {
         display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 10px;
-        background-color: #252422;
+        justify-content: flex-end;
+        padding: 20px 0;
+    }
+    
+    .nav-links {
+        display: flex;
+        list-style: none;
+    }
+    
+    .nav-links li {
+        margin-left: 30px;
+    }
+    
+    .nav-links a {
+        color: #e86c3a;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+        color: #ff8c5a;
+    }
+    
+    .hamburger {
+        display: none;
+        cursor: pointer;
+        background: #e86c3a;
         padding: 10px;
+        border: none;
+    }
+    
+    .hamburger div {
+        width: 25px;
+        height: 3px;
+        background-color: #3c3c3a;
+        margin: 5px 0;
+    }
+    
+    .cta-button {
+        background-color: #e86c3a;
+        color: white;
+        padding: 10px 20px;
         border-radius: 5px;
-      }
-
-      h1, p {
-        text-align: center;
-        font-size: 1.2rem;
-      }
-
-      .container {
-        padding: 10px;
-      }
-
-      .project-card, .certification-link {
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+    
+    .cta-button:hover {
+        background-color: #ff8c5a;
+    }
+    
+    /* Hero Section */
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 50px 0;
+    }
+    
+    .hero-content {
+        flex: 1;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+        font-weight: normal;
+        margin-bottom: 10px;
+    }
+    
+    .hero h2 {
+        font-size: 4rem;
+        color: #e86c3a;
         margin-bottom: 20px;
-      }
+        font-weight: bold;
     }
-
-    /* Coin Flip Styles */
-    .backface-hidden {
-      backface-visibility: hidden;
+    
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 30px;
+        max-width: 600px;
     }
-
-    #profile-image {
-      transition: opacity 0.3s ease;
-      cursor: pointer;
+    
+    .profile-image {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background-color: #ddd;
+        margin-left: 50px;
     }
-
-    #coin-container {
-      perspective: 1200px;
-      transform-style: preserve-3d;
-      transition: transform 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* Social Links */
+    .social-links {
+        display: flex;
+        margin-top: 30px;
     }
-
-    #coin-heads, #coin-tails {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
+    
+    .social-links a {
+        display: inline-block;
+        margin-right: 20px;
+        color: #e86c3a;
+        font-size: 1.8rem;
+        transition: color 0.3s;
     }
-
-    #coin-tails {
-      transform: rotateY(180deg);
+    
+    .social-links a:hover {
+        color: #ff8c5a;
     }
-  </style>
+    
+    /* Sections */
+    section {
+        padding: 60px 0;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        color: #e86c3a;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .menu-icon{
+      display: none;
+    }
+    
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+        .container{
+          justify-content: center;
+        }
+        .say-hello{
+          display: none;
+        }
+        body {
+            text-align: center;
+        }
+        
+        .hamburger {
+            display: block;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #3c3c3a;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        
+        .nav-links.active {
+            display: flex;
+        }
+        
+        .nav-links li {
+            margin: 15px 0;
+        }
+        
+        .hero {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .hero-content {
+            order: 2;
+        }
+        
+        .profile-image {
+            order: 1;
+            margin: 0 0 30px 0;
+            width: 200px;
+            height: 200px;
+        }
+        
+        .hero h1 {
+            font-size: 1.8rem;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+        }
+        
+        .social-links {
+            justify-content: center;
+        }
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-almostBlack text-cream">
   <!-- Navigation - Fixed at top -->
   <nav class="fixed top-0 left-0 right-0 z-10 bg-almostBlack py-4 px-6">
-    <div class="container mx-auto flex justify-between items-center">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="container mx-auto flex items-center">
       <span class="menu-icon text-orange text-2xl">&#9776;</span>
       <ul class="flex space-x-6">
-        <li><a href="#about" class="hover:text-orange">About Me</a></li>
+        <li><a href="#about" class="hover:text-orange">About Me</a></li> 
         <li><a href="#certifications" class="hover:text-orange">Certifications</a></li>
         <li><a href="#projects" class="hover:text-orange">Projects</a></li>
-        <li>
+        <li class ="say-hello">
           <a href="#contact" class="bg-orange text-cream px-4 py-2 rounded transition-colors duration-300 hover:bg-cream hover:text-orange">
             Say hello!
           </a>
@@ -120,71 +280,16 @@
           </p>
 
           <!-- Social Icons -->
-          <div class="flex space-x-4 mt-10">
-            <a href="#" class="text-orange hover:text-cream transition p-2">
-              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-            <a href="#" class="text-orange hover:text-cream transition p-2">
-              <svg class="w-6 h-6" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
-              </svg>
-            </a>
-            <a href="#" class="text-orange hover:text-cream transition p-2">
-              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
-            </a>
-          </div>
+          <div class="social-links">
+            <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://google.com/" target="_blank"><i class="fab fa-google"></i></a>
+            <a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
         </div>
 
         <div class="md:w-2/5 mt-8 md:mt-0 flex justify-center items-center">
             <div class="relative w-80 h-80">
-              <img id="profile-image" src="static/images/pfp.jpg" alt="Areen's profile" class="w-full h-full object-cover rounded-full border-4 border-orange shadow-lg transform hover:scale-105 transition-transform duration-300" title="Click to flip a coin!">
-              
-              <!-- Coin container -->
-                <div id="coin-container" class="absolute inset-0 w-full h-full rounded-full hidden">
-                    <!-- Heads side -->
-                    <div id="coin-heads" class="absolute inset-0 w-full h-full rounded-full backface-hidden">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                        <!-- Minimalistic silver coin -->
-                        <defs>
-                        <linearGradient id="silverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#e0e0e0" />
-                            <stop offset="100%" stop-color="#a0a0a0" />
-                        </linearGradient>
-                        </defs>
-                        
-                        <!-- Simple coin body -->
-                        <circle cx="100" cy="100" r="95" fill="url(#silverGradient)" stroke="#808080" stroke-width="2" />
-                        
-                        <!-- Minimal heads design -->
-                        <text x="100" y="110" text-anchor="middle" font-size="48" font-weight="bold" fill="#505050">H</text>
-                    </svg>
-                    </div>
-                    
-                    <!-- Tails side -->
-                    <div id="coin-tails" class="absolute inset-0 w-full h-full rounded-full backface-hidden">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                        <!-- Minimalistic silver coin -->
-                        <defs>
-                        <linearGradient id="silverGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#e0e0e0" />
-                            <stop offset="100%" stop-color="#a0a0a0" />
-                        </linearGradient>
-                        </defs>
-                        
-                        <!-- Simple coin body -->
-                        <circle cx="100" cy="100" r="95" fill="url(#silverGradient2)" stroke="#808080" stroke-width="2" />
-                        
-                        <!-- Minimal tails design -->
-                        <text x="100" y="110" text-anchor="middle" font-size="48" font-weight="bold" fill="#505050">T</text>
-                    </svg>
-                    </div>
-                </div>
-  
-              
+              <img id="profile-image" src="static/images/pfp.jpg" alt="Areen's profile" class="w-full h-full object-cover rounded-full border-4 border-orange shadow-lg transform hover:scale-105 transition-transform duration-300" >
             </div>
           </div>                  
       </div>
@@ -504,49 +609,7 @@
     
     // Start the transition with faster interval
     setInterval(changeTitle, 3000);
-    
-    document.addEventListener('DOMContentLoaded', function () {
-      const profileImage = document.getElementById('profile-image');
-      const coinContainer = document.getElementById('coin-container');
-      const coinHeads = document.getElementById('coin-heads');
-      const coinTails = document.getElementById('coin-tails');
-      
-      let isFlipping = false;
 
-      profileImage.addEventListener('click', function () {
-        if (isFlipping) return;
-        
-        isFlipping = true;
-
-        // Hide profile image and show coin
-        profileImage.style.opacity = '0';
-        setTimeout(() => {
-          profileImage.style.display = 'none';
-          coinContainer.style.display = 'block';
-
-          // Randomize result
-          const result = Math.random() < 0.5 ? 'heads' : 'tails';
-          const rotations = result === 'heads' ? '0deg' : '180deg';
-
-          // Animate coin flip
-          coinContainer.style.transform = `rotateY(${360 * 5 + parseInt(rotations)}deg)`;
-
-          // Show result after animation
-          setTimeout(() => {
-            coinHeads.style.display = result === 'heads' ? 'block' : 'none';
-            coinTails.style.display = result === 'tails' ? 'block' : 'none';
-
-            // Reset after showing result
-            setTimeout(() => {
-              coinContainer.style.display = 'none';
-              profileImage.style.display = 'block';
-              profileImage.style.opacity = '1';
-              isFlipping = false;
-            }, 1500);
-          }, 2500);
-        }, 300);
-      });
-    });
     document.querySelector('.menu-icon').addEventListener('click', () => {
       document.querySelector('nav').classList.toggle('active');
     });
@@ -596,7 +659,24 @@
             if (e.target === modal) modal.remove();
         });
         });
+
     });
+    document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const navLinks = document.getElementById('nav-links');
+            
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            const links = document.querySelectorAll('.nav-links a');
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
     });
   
   </script>
