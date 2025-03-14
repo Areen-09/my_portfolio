@@ -1,6 +1,8 @@
 # Portfolio Website
 
-![Portfolio Preview](https://via.placeholder.com/1200x600.png?text=Portfolio+Website+Preview)
+![Portfolio Preview]
+![image](https://github.com/user-attachments/assets/4b1ea086-8f46-4799-98c5-6a31ea1ea331)
+
 
 This is a personal portfolio website built with **Django** and deployed on **Render**.
 
